@@ -1,4 +1,3 @@
-export declare const vmaCodeType = "VMA";
 export declare const specificVmaCodeTypes: readonly ["Aircraft", "Auto", "Construction", "Farm", "Motorcycle", "Snowmobile", "Trucks", "Trailers"];
 /**
  * Determines if a code type is a VMA code type.

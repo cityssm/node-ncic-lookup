@@ -3,8 +3,6 @@
 
 import { isFieldValue } from '../index.js'
 
-export const vmaCodeType = 'VMA'
-
 export const specificVmaCodeTypes = [
   'Aircraft',
   'Auto',

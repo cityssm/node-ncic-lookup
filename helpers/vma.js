@@ -1,7 +1,6 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable @typescript-eslint/indent */
 import { isFieldValue } from '../index.js';
-export const vmaCodeType = 'VMA';
 export const specificVmaCodeTypes = [
     'Aircraft',
     'Auto',
