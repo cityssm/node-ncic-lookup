@@ -1,0 +1,39 @@
+{
+  "name": "@cityssm/ncic-lookup",
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "description": "Translates NCIC codes into meaningful names",
+  "exports": {
+    ".": "./index.js",
+    "./helpers/*.js": "./helpers/*.js"
+  },
+  "scripts": {
+    "build": "node ./build/build.js",
+    "test": "mocha",
+    "coverage": "c8 mocha"
+  },
+  "keywords": [
+    "ncic",
+    "neim"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cityssm/node-ncic-lookup.git"
+  },
+  "author": "The Corporation of the City of Sault Ste. Marie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cityssm/node-ncic-lookup/issues"
+  },
+  "homepage": "https://github.com/cityssm/node-ncic-lookup#readme",
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.11.24",
+    "@types/xml2js": "^0.4.14",
+    "eslint-config-cityssm": "^1.4.2",
+    "xml2js": "^0.6.2"
+  }
+}
