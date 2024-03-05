@@ -1,10 +1,13 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable security/detect-object-injection */
+/* eslint-disable security/detect-non-literal-fs-filename, security/detect-object-injection */
 
 import fs from 'node:fs/promises'
+import path from 'node:path'
 
 let codeTypes: Record<string, string> = {}
 let codeTypeFieldValues: Record<string, Record<string, string>> = {}
+
+const currentFolder = path.dirname(import.meta.filename ?? '.')
 
 /**
  * Returns an object of code types.
@@ -12,7 +15,7 @@ let codeTypeFieldValues: Record<string, Record<string, string>> = {}
  */
 export async function getCodeTypes(): Promise<Record<string, string>> {
   if (Object.keys(codeTypes).length === 0) {
-    const codeTypesData = await fs.readFile('./data/codeTypes.json')
+    const codeTypesData = await fs.readFile(path.join(currentFolder, 'data', 'codeTypes.json'))
     codeTypes = JSON.parse(codeTypesData as unknown as string)
   }
 
@@ -53,8 +56,7 @@ export async function getFieldValues(
     (await isCodeType(codeType)) &&
     !Object.hasOwn(codeTypeFieldValues, codeType)
   ) {
-    // eslint-disable-next-line security/detect-non-literal-fs-filename
-    const fieldValueData = await fs.readFile(`./data/${codeType}.json`)
+    const fieldValueData = await fs.readFile(path.join(currentFolder, 'data', `${codeType}.json`))
 
     codeTypeFieldValues[codeType] = JSON.parse(
       fieldValueData as unknown as string
