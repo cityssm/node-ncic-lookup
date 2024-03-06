@@ -1,14 +1,14 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable security/detect-non-literal-fs-filename, security/detect-object-injection */
+/* eslint-disable @typescript-eslint/indent, security/detect-non-literal-fs-filename, security/detect-object-injection */
 import fs from 'node:fs/promises';
-let codeTypes = {};
+let codeTypes;
 let codeTypeFieldValues = {};
 /**
  * Returns an object of code types.
  * @returns {Promise<Record<string, string>>} - An object with "code type" keys and "code type description" values.
  */
 export async function getCodeTypes() {
-    if (Object.keys(codeTypes).length === 0) {
+    if (codeTypes === undefined) {
         const codeTypesData = await fs.readFile(new URL('data/codeTypes.json', import.meta.url));
         codeTypes = JSON.parse(codeTypesData);
     }
@@ -21,6 +21,9 @@ export async function getCodeTypes() {
  */
 export async function isCodeType(possibleCodeType) {
     await getCodeTypes();
+    if (codeTypes === undefined) {
+        return false;
+    }
     return Object.hasOwn(codeTypes, possibleCodeType);
 }
 /**
@@ -30,6 +33,9 @@ export async function isCodeType(possibleCodeType) {
  */
 export async function getCodeTypeDescription(codeType) {
     await getCodeTypes();
+    if (codeTypes === undefined) {
+        return undefined;
+    }
     return codeTypes[codeType];
 }
 /**
@@ -47,12 +53,12 @@ export async function getFieldValues(codeType) {
 }
 /**
  * Determines if a code type - field value combination is valid.
- * @param {string} possibleCodeType - A possible code type.
+ * @param {string} codeType - A code type.
  * @param {string} possibleFieldValue - A possible field value
- * @returns {Promise<boolean>} - True when the possibleCodeType and possibleFieldValue are valid.
+ * @returns {Promise<boolean>} - True when the codeType and possibleFieldValue are valid.
  */
-export async function isFieldValue(possibleCodeType, possibleFieldValue) {
-    const fieldValues = await getFieldValues(possibleCodeType);
+export async function isFieldValue(codeType, possibleFieldValue) {
+    const fieldValues = await getFieldValues(codeType);
     return Object.hasOwn(fieldValues, possibleFieldValue);
 }
 /**
@@ -69,7 +75,7 @@ export async function getFieldValueDescription(codeType, fieldValue) {
  * Clears memory of cached objects.
  */
 export function clearObjectCaches() {
-    codeTypes = {};
+    codeTypes = undefined;
     codeTypeFieldValues = {};
 }
 /**
@@ -78,6 +84,9 @@ export function clearObjectCaches() {
  */
 export async function loadAllObjectCaches() {
     await getCodeTypes();
+    if (codeTypes === undefined) {
+        return 0;
+    }
     for (const codeType of Object.keys(codeTypes)) {
         await getFieldValues(codeType);
     }
