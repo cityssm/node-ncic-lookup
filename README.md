@@ -9,7 +9,8 @@ Lookups and helper functions for FBI National Crime and Information Center (NCIC
 
 Built using the XSD file from the [National Information Exchange Model (NEIM) 5.0](https://release.niem.gov/niem/5.0/).
 
-Note that the City of Sault Ste. Marie is using this information for vehicle related lookups,
+Note that the City of Sault Ste. Marie is using this information for vehicle related lookups in the
+[Parking Ticket System](https://github.com/cityssm/parking-ticket-system),
 however other lookups are available and are included to increase the reusability of this package.
 See the [codeTypes.json file](data/codeTypes.json) for all of the lookups available.
 
@@ -24,6 +25,13 @@ npm install @cityssm/ncic-lookup
 ```javascript
 import * as ncicLookup from '@cityssm/ncic-lookup'
 
+const codeTypes = await ncicLookup.getCodeTypes()
+console.log(Object.keys(codeTypes))
+// ["ABRA", "ADD", "Aircraft", ..., "VOW", "VPC", "VST"]
+
 console.log(await ncicLookup.getFieldValueDescription('VMA', 'GMC'))
 // "GENERAL MOTORS CORP."
+
+console.log(await ncicLookup.vmaHelpers.getNhtsaCompatibleMake('CHEV'))
+// "CHEVROLET"
 ```
