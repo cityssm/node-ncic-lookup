@@ -9,6 +9,9 @@ const invalidFieldValue = 'ZZZ'
 const validAutomobileFieldValue = 'GMC'
 const validTrailerFieldValue = 'JACK'
 
+const nhtsaOverwrittenFieldValue = 'JEEP'
+const nhtsaNonOverwrittenFieldValue = 'CHEV'
+
 describe('vmaHelpers', () => {
   describe('isVmaCodeType()', () => {
     it('Returns true for a valid VMA code types', () => {
@@ -55,6 +58,32 @@ describe('vmaHelpers', () => {
           validAutomobileFieldValue
         ))
       )
+    })
+  })
+
+  describe('getNhtsaCompatibleMake', () => {
+    it('Returns a NHTSA-compatible make if available', async () => {
+      const regularValue = await ncicLookup.getFieldValueDescription(
+        'VMA',
+        nhtsaOverwrittenFieldValue
+      )
+      const nhtsaValue = ncicLookup.vmaHelpers.getNhtsaCompatibleMake(
+        nhtsaOverwrittenFieldValue
+      )
+
+      assert.notStrictEqual(regularValue, nhtsaValue)
+    })
+
+    it('Returns regular field description if no NHTSA value available', async () => {
+      const regularValue = await ncicLookup.getFieldValueDescription(
+        'VMA',
+        nhtsaNonOverwrittenFieldValue
+      )
+      const nhtsaValue = ncicLookup.vmaHelpers.getNhtsaCompatibleMake(
+        nhtsaNonOverwrittenFieldValue
+      )
+
+      assert.notEqual(regularValue, nhtsaValue)
     })
   })
 })

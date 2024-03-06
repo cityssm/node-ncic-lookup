@@ -1,6 +1,7 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable @typescript-eslint/indent */
-import { isFieldValue } from '../index.js';
+/* eslint-disable @typescript-eslint/indent, security/detect-non-literal-fs-filename, security/detect-object-injection */
+import fs from 'node:fs/promises';
+import { getFieldValueDescription, isFieldValue } from '../index.js';
 export const specificVmaCodeTypes = [
     'Aircraft',
     'Auto',
@@ -21,7 +22,7 @@ export function isVmaCodeType(possibleVmaCodeType) {
 }
 /**
  * Returns a list of code types for a given field type.
- * @param {string} vmaFieldValue - A field type associated with a VMA code type.
+ * @param {string} vmaFieldValue - A field value associated with a VMA code type.
  * @returns {string[]} - A list of code types that include the given field type.
  */
 export async function getPossibleVmaCodeTypes(vmaFieldValue) {
@@ -42,4 +43,20 @@ export async function getPossibleVmaCodeTypes(vmaFieldValue) {
 export async function isFieldValueExclusiveToVmaCodeType(vmaCodeType, vmaFieldValue) {
     const codeTypes = await getPossibleVmaCodeTypes(vmaFieldValue);
     return codeTypes.length === 1 && codeTypes[0] === vmaCodeType;
+}
+let nhtsaOverrides = {};
+/**
+ * Returns a NHTSA-compatible vehicle make if available.
+ * @param {string} vmaFieldValue - A field value associated with a VMA code type.
+ * @returns {string} - A NHTSA-compatible description if available, otherwise the field description.
+ */
+export async function getNhtsaCompatibleMake(vmaFieldValue) {
+    if (Object.keys(nhtsaOverrides).length === 0) {
+        const nhtsaOverridesData = await fs.readFile(new URL('nhtsaOverrides.json', import.meta.url));
+        nhtsaOverrides = JSON.parse(nhtsaOverridesData);
+    }
+    if (nhtsaOverrides[vmaFieldValue] === undefined) {
+        return await getFieldValueDescription('VMA', vmaFieldValue);
+    }
+    return nhtsaOverrides[vmaFieldValue];
 }
