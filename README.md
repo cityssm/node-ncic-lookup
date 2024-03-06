@@ -7,7 +7,7 @@
 
 Lookups and helper functions for FBI National Crime and Information Center (NCIC) codes.
 
-Built using the XSD file from the [National Information Exchange Model (NEIM) 5.0](https://release.niem.gov/niem/5.0/).
+Built using the XSD file from the [National Information Exchange Model (NEIM) 5.2](https://release.niem.gov/niem/5.2/).
 
 Note that the City of Sault Ste. Marie is using this information for vehicle related lookups in the
 [Parking Ticket System](https://github.com/cityssm/parking-ticket-system),

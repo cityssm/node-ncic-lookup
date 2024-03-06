@@ -3,11 +3,16 @@
 
 import fs from 'node:fs/promises'
 
-import { getFieldValueDescription, isFieldValue } from '../index.js'
+import {
+  type ValidCodeTypes,
+  getFieldValueDescription,
+  isFieldValue
+} from '../index.js'
 
-export const specificVmaCodeTypes = [
+export const vmaCodeType = 'VMA'
+
+export const specificVmaSubCodeTypes: ValidCodeTypes[] = [
   'Aircraft',
-  'Auto',
   'Construction',
   'Farm',
   'Motorcycle',
@@ -18,13 +23,13 @@ export const specificVmaCodeTypes = [
 
 /**
  * Determines if a code type is a VMA code type.
- * @param {string} possibleVmaCodeType - A possible code type
+ * @param {string} possibleVmaCodeType - A possible subcode type
  * @returns {boolean} - True when the code type is a VMA code type.
  */
 export function isVmaCodeType(
   possibleVmaCodeType: string
-): possibleVmaCodeType is (typeof specificVmaCodeTypes)[number] {
-  return (specificVmaCodeTypes as unknown as string[]).includes(
+): possibleVmaCodeType is (typeof specificVmaSubCodeTypes)[number] {
+  return (specificVmaSubCodeTypes as unknown as string[]).includes(
     possibleVmaCodeType
   )
 }
@@ -34,12 +39,12 @@ export function isVmaCodeType(
  * @param {string} vmaFieldValue - A field value associated with a VMA code type.
  * @returns {string[]} - A list of code types that include the given field type.
  */
-export async function getPossibleVmaCodeTypes(
+export async function getPossibleVmaSubCodeTypes(
   vmaFieldValue: string
-): Promise<Array<(typeof specificVmaCodeTypes)[number]>> {
-  const codeTypes: Array<(typeof specificVmaCodeTypes)[number]> = []
+): Promise<Array<(typeof specificVmaSubCodeTypes)[number]>> {
+  const codeTypes: Array<(typeof specificVmaSubCodeTypes)[number]> = []
 
-  for (const codeType of specificVmaCodeTypes) {
+  for (const codeType of specificVmaSubCodeTypes) {
     if (await isFieldValue(codeType, vmaFieldValue)) {
       codeTypes.push(codeType)
     }
@@ -49,16 +54,16 @@ export async function getPossibleVmaCodeTypes(
 }
 
 /**
- * Determines if a field value is exclusive to a specific code type.
+ * Determines if a field value is exclusive to a specific subcode type.
  * @param {string} vmaCodeType - A code type.
  * @param {string} vmaFieldValue - A field value.
  * @returns {boolean} - True if the field value only appears under the given code type.
  */
-export async function isFieldValueExclusiveToVmaCodeType(
-  vmaCodeType: (typeof specificVmaCodeTypes)[number],
+export async function isFieldValueExclusiveToVmaSubCodeType(
+  vmaCodeType: (typeof specificVmaSubCodeTypes)[number],
   vmaFieldValue: string
 ): Promise<boolean> {
-  const codeTypes = await getPossibleVmaCodeTypes(vmaFieldValue)
+  const codeTypes = await getPossibleVmaSubCodeTypes(vmaFieldValue)
 
   return codeTypes.length === 1 && codeTypes[0] === vmaCodeType
 }
@@ -81,7 +86,7 @@ export async function getNhtsaCompatibleMake(
   }
 
   if (nhtsaOverrides[vmaFieldValue] === undefined) {
-    return await getFieldValueDescription('VMA', vmaFieldValue)
+    return await getFieldValueDescription(vmaCodeType, vmaFieldValue)
   }
 
   return nhtsaOverrides[vmaFieldValue]

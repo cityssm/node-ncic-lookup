@@ -3,7 +3,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import xml2js from 'xml2js';
-const ncicXsdUrl = 'https://release.niem.gov/niem/5.0/xsd/codes/ncic.xsd';
+const ncicXsdUrl = 'https://release.niem.gov/niem/5.2/xsd/codes/ncic.xsd';
 const ncicXsdPath = './build/temp/ncic.xsd';
 const dataPath = './data';
 const codeDescriptionPrefix = 'A data type for ';

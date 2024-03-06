@@ -2,7 +2,7 @@ import assert from 'node:assert'
 
 import * as ncicLookup from '../index.js'
 
-const validVmaCodeType = 'Auto'
+const validVmaCodeType = 'Trucks'
 const invalidVmaCodeType = 'Person'
 
 const invalidFieldValue = 'ZZZ'
@@ -23,9 +23,9 @@ describe('vmaHelpers', () => {
     })
   })
 
-  describe('getPossibleVmaCodeTypes()', () => {
+  describe('getPossibleVmaSubCodeTypes()', () => {
     it('Returns code types for a valid field type', async () => {
-      const codeTypes = await ncicLookup.vmaHelpers.getPossibleVmaCodeTypes(
+      const codeTypes = await ncicLookup.vmaHelpers.getPossibleVmaSubCodeTypes(
         validAutomobileFieldValue
       )
 
@@ -33,7 +33,7 @@ describe('vmaHelpers', () => {
     })
 
     it('Returns an empty array for an invalid field type', async () => {
-      const codeTypes = await ncicLookup.vmaHelpers.getPossibleVmaCodeTypes(
+      const codeTypes = await ncicLookup.vmaHelpers.getPossibleVmaSubCodeTypes(
         invalidFieldValue
       )
 
@@ -41,10 +41,10 @@ describe('vmaHelpers', () => {
     })
   })
 
-  describe('isFieldValueExclusiveToVmaCodeType()', () => {
+  describe('isFieldValueExclusiveToVmaSubCodeType()', () => {
     it('Returns true for a "Trailer-only" field value', async () => {
       assert.ok(
-        await ncicLookup.vmaHelpers.isFieldValueExclusiveToVmaCodeType(
+        await ncicLookup.vmaHelpers.isFieldValueExclusiveToVmaSubCodeType(
           'Trailers',
           validTrailerFieldValue
         )
@@ -53,8 +53,8 @@ describe('vmaHelpers', () => {
 
     it('Returns false for a field type appearing in multiple code types', async () => {
       assert.ok(
-        !(await ncicLookup.vmaHelpers.isFieldValueExclusiveToVmaCodeType(
-          'Auto',
+        !(await ncicLookup.vmaHelpers.isFieldValueExclusiveToVmaSubCodeType(
+          'Trucks',
           validAutomobileFieldValue
         ))
       )

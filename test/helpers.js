@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import * as ncicLookup from '../index.js';
-const validVmaCodeType = 'Auto';
+const validVmaCodeType = 'Trucks';
 const invalidVmaCodeType = 'Person';
 const invalidFieldValue = 'ZZZ';
 const validAutomobileFieldValue = 'GMC';
@@ -16,22 +16,22 @@ describe('vmaHelpers', () => {
             assert.ok(!ncicLookup.vmaHelpers.isVmaCodeType(invalidVmaCodeType));
         });
     });
-    describe('getPossibleVmaCodeTypes()', () => {
+    describe('getPossibleVmaSubCodeTypes()', () => {
         it('Returns code types for a valid field type', async () => {
-            const codeTypes = await ncicLookup.vmaHelpers.getPossibleVmaCodeTypes(validAutomobileFieldValue);
+            const codeTypes = await ncicLookup.vmaHelpers.getPossibleVmaSubCodeTypes(validAutomobileFieldValue);
             assert.ok(codeTypes.length > 0);
         });
         it('Returns an empty array for an invalid field type', async () => {
-            const codeTypes = await ncicLookup.vmaHelpers.getPossibleVmaCodeTypes(invalidFieldValue);
+            const codeTypes = await ncicLookup.vmaHelpers.getPossibleVmaSubCodeTypes(invalidFieldValue);
             assert.ok(codeTypes.length === 0);
         });
     });
-    describe('isFieldValueExclusiveToVmaCodeType()', () => {
+    describe('isFieldValueExclusiveToVmaSubCodeType()', () => {
         it('Returns true for a "Trailer-only" field value', async () => {
-            assert.ok(await ncicLookup.vmaHelpers.isFieldValueExclusiveToVmaCodeType('Trailers', validTrailerFieldValue));
+            assert.ok(await ncicLookup.vmaHelpers.isFieldValueExclusiveToVmaSubCodeType('Trailers', validTrailerFieldValue));
         });
         it('Returns false for a field type appearing in multiple code types', async () => {
-            assert.ok(!(await ncicLookup.vmaHelpers.isFieldValueExclusiveToVmaCodeType('Auto', validAutomobileFieldValue)));
+            assert.ok(!(await ncicLookup.vmaHelpers.isFieldValueExclusiveToVmaSubCodeType('Trucks', validAutomobileFieldValue)));
         });
     });
     describe('getNhtsaCompatibleMake', () => {
