@@ -1,6 +1,7 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @typescript-eslint/indent, security/detect-non-literal-fs-filename, security/detect-object-injection */
 import fs from 'node:fs/promises';
+export const ncicVersion = '5.2';
 let codeTypes;
 let codeTypeFieldValues = {};
 /**

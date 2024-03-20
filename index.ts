@@ -8,6 +8,8 @@ import type codeTypesJson from './data/codeTypes.json'
 export type ValidCodeTypes = keyof typeof codeTypesJson
 type InvalidCodeTypes = Exclude<string, ValidCodeTypes>
 
+export const ncicVersion = '5.2'
+
 let codeTypes: Record<keyof typeof codeTypesJson, string> | undefined
 let codeTypeFieldValues: Partial<
   Record<keyof typeof codeTypesJson, Record<string, string>>

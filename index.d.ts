@@ -1,6 +1,7 @@
 import type codeTypesJson from './data/codeTypes.json';
 export type ValidCodeTypes = keyof typeof codeTypesJson;
 type InvalidCodeTypes = Exclude<string, ValidCodeTypes>;
+export declare const ncicVersion = "5.2";
 /**
  * Returns an object of code types.
  * @returns {Promise<Record<string, string>>} - An object with "code type" keys and "code type description" values.
