@@ -6,9 +6,11 @@ import path from 'node:path'
 
 import xml2js from 'xml2js'
 
+import { ncicVersion } from '../index.js'
+
 import type { XsdSimpleType } from './xmlTypes.js'
 
-const ncicXsdUrl = 'https://release.niem.gov/niem/5.2/xsd/codes/ncic.xsd'
+const ncicXsdUrl = `https://release.niem.gov/niem/${ncicVersion}/xsd/codes/ncic.xsd`
 const ncicXsdPath = './build/temp/ncic.xsd'
 
 const dataPath = './data'
