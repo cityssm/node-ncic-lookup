@@ -1,6 +1,5 @@
-import { type ValidCodeTypes } from '../index.js';
 export declare const vmaCodeType = "VMA";
-export declare const specificVmaSubCodeTypes: ValidCodeTypes[];
+export declare const specificVmaSubCodeTypes: ["Aircraft", "Construction", "Farm", "Motorcycle", "Snowmobile", "Trucks", "Trailers"];
 /**
  * Determines if a code type is a VMA code type.
  * @param {string} possibleVmaCodeType - A possible subcode type

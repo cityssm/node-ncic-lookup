@@ -11,7 +11,7 @@ import {
 
 export const vmaCodeType = 'VMA'
 
-export const specificVmaSubCodeTypes: ValidCodeTypes[] = [
+export const specificVmaSubCodeTypes = [
   'Aircraft',
   'Construction',
   'Farm',
@@ -19,7 +19,7 @@ export const specificVmaSubCodeTypes: ValidCodeTypes[] = [
   'Snowmobile',
   'Trucks',
   'Trailers'
-] as const
+] as const satisfies ValidCodeTypes[]
 
 /**
  * Determines if a code type is a VMA code type.
