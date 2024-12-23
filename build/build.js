@@ -1,5 +1,3 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable n/no-unpublished-import */
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import xml2js from 'xml2js';
@@ -55,10 +53,10 @@ async function parseXsd() {
         // eslint-disable-next-line security/detect-object-injection
         codeTypes[codeType] = codeDescription;
     }
-    await fs.writeFile(`${dataPath}/codeTypes.json`, JSON.stringify(codeTypes, undefined, 2));
+    await fs.writeFile(`${dataPath}/codeTypes.data.ts`, 'export default ' + JSON.stringify(codeTypes, undefined, 2));
 }
-const success = await downloadXsd();
-if (success) {
-    await clearData();
-    await parseXsd();
-}
+// const success = await downloadXsd()
+// if (success) {
+await clearData();
+await parseXsd();
+// }

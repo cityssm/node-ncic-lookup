@@ -1,4 +1,5 @@
 import assert from 'node:assert'
+import { describe, it } from 'node:test'
 
 import * as ncicLookup from '../index.js'
 
@@ -12,19 +13,19 @@ const validTrailerFieldValue = 'JACK'
 const nhtsaOverwrittenFieldValue = 'JEEP'
 const nhtsaNonOverwrittenFieldValue = 'CHEV'
 
-describe('vmaHelpers', () => {
-  describe('isVmaCodeType()', () => {
-    it('Returns true for a valid VMA code types', () => {
+await describe('vmaHelpers', async () => {
+  await describe('isVmaCodeType()', async () => {
+    await it('Returns true for a valid VMA code types', () => {
       assert.ok(ncicLookup.vmaHelpers.isVmaCodeType(validVmaCodeType))
     })
 
-    it('Returns false for an invalid VMA code types', () => {
+    await it('Returns false for an invalid VMA code types', () => {
       assert.ok(!ncicLookup.vmaHelpers.isVmaCodeType(invalidVmaCodeType))
     })
   })
 
-  describe('getPossibleVmaSubCodeTypes()', () => {
-    it('Returns code types for a valid field type', async () => {
+  await describe('getPossibleVmaSubCodeTypes()', async () => {
+    await it('Returns code types for a valid field type', async () => {
       const codeTypes = await ncicLookup.vmaHelpers.getPossibleVmaSubCodeTypes(
         validAutomobileFieldValue
       )
@@ -32,17 +33,18 @@ describe('vmaHelpers', () => {
       assert.ok(codeTypes.length > 0)
     })
 
-    it('Returns an empty array for an invalid field type', async () => {
-      const codeTypes = await ncicLookup.vmaHelpers.getPossibleVmaSubCodeTypes(
-        invalidFieldValue
-      )
+    await it('Returns an empty array for an invalid field type', async () => {
+      const codeTypes =
+        await ncicLookup.vmaHelpers.getPossibleVmaSubCodeTypes(
+          invalidFieldValue
+        )
 
       assert.ok(codeTypes.length === 0)
     })
   })
 
-  describe('isFieldValueExclusiveToVmaSubCodeType()', () => {
-    it('Returns true for a "Trailer-only" field value', async () => {
+  await describe('isFieldValueExclusiveToVmaSubCodeType()', async () => {
+    await it('Returns true for a "Trailer-only" field value', async () => {
       assert.ok(
         await ncicLookup.vmaHelpers.isFieldValueExclusiveToVmaSubCodeType(
           'Trailers',
@@ -51,7 +53,7 @@ describe('vmaHelpers', () => {
       )
     })
 
-    it('Returns false for a field type appearing in multiple code types', async () => {
+    await it('Returns false for a field type appearing in multiple code types', async () => {
       assert.ok(
         !(await ncicLookup.vmaHelpers.isFieldValueExclusiveToVmaSubCodeType(
           'Trucks',
@@ -61,8 +63,8 @@ describe('vmaHelpers', () => {
     })
   })
 
-  describe('getNhtsaCompatibleMake', () => {
-    it('Returns a NHTSA-compatible make if available', async () => {
+  await describe('getNhtsaCompatibleMake', async () => {
+    await it('Returns a NHTSA-compatible make if available', async () => {
       const regularValue = await ncicLookup.getFieldValueDescription(
         'VMA',
         nhtsaOverwrittenFieldValue
@@ -74,7 +76,7 @@ describe('vmaHelpers', () => {
       assert.notStrictEqual(regularValue, nhtsaValue)
     })
 
-    it('Returns regular field description if no NHTSA value available', async () => {
+    await it('Returns regular field description if no NHTSA value available', async () => {
       const regularValue = await ncicLookup.getFieldValueDescription(
         'VMA',
         nhtsaNonOverwrittenFieldValue

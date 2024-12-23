@@ -12,8 +12,8 @@
   },
   "scripts": {
     "build": "node ./build/build.js",
-    "test": "mocha",
-    "coverage": "c8 mocha"
+    "test": "node --test",
+    "coverage": "c8 --reporter=lcov --reporter=text --reporter=text-summary node --test"
   },
   "keywords": [
     "automobiles",
@@ -32,10 +32,10 @@
   },
   "homepage": "https://github.com/cityssm/node-ncic-lookup#readme",
   "devDependencies": {
-    "@types/mocha": "^10.0.6",
-    "@types/node": "^20.11.30",
+    "@types/node": "^22.10.2",
     "@types/xml2js": "^0.4.14",
-    "eslint-config-cityssm": "^1.4.2",
+    "eslint-config-cityssm": "^18.1.2",
+    "prettier-config-cityssm": "^1.0.0",
     "xml2js": "^0.6.2"
   }
 }

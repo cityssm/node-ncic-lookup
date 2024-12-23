@@ -1,6 +1,3 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable n/no-unpublished-import */
-
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
@@ -86,14 +83,14 @@ async function parseXsd(): Promise<void> {
   }
 
   await fs.writeFile(
-    `${dataPath}/codeTypes.json`,
-    JSON.stringify(codeTypes, undefined, 2)
+    `${dataPath}/codeTypes.data.ts`,
+    'export default ' + JSON.stringify(codeTypes, undefined, 2)
   )
 }
 
-const success = await downloadXsd()
+// const success = await downloadXsd()
 
-if (success) {
+// if (success) {
   await clearData()
   await parseXsd()
-}
+// }

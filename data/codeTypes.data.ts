@@ -1,4 +1,4 @@
-{
+export default {
   "ABRA": "2 - Article Brand Name (BRA) Field Codes",
   "ADD": "21 - Address Type (ADD) Field Codes",
   "Aircraft": "2.3: Aircraft Make/Brand Name (VMA) Fields",

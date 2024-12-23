@@ -1,4 +1,4 @@
-{
+export default {
   "ACUR": "ACURA",
   "ALFA": "ALFA ROMEO",
   "AUDI": "AUDI",
