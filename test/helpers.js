@@ -27,6 +27,7 @@ await describe('vmaHelpers', async () => {
             assert.ok(codeTypes.length === 0);
         });
     });
+    // eslint-disable-next-line no-secrets/no-secrets
     await describe('isFieldValueExclusiveToVmaSubCodeType()', async () => {
         await it('Returns true for a "Trailer-only" field value', async () => {
             assert.ok(await ncicLookup.vmaHelpers.isFieldValueExclusiveToVmaSubCodeType('Trailers', validTrailerFieldValue));

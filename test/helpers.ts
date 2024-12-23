@@ -43,6 +43,7 @@ await describe('vmaHelpers', async () => {
     })
   })
 
+  // eslint-disable-next-line no-secrets/no-secrets
   await describe('isFieldValueExclusiveToVmaSubCodeType()', async () => {
     await it('Returns true for a "Trailer-only" field value', async () => {
       assert.ok(
