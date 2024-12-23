@@ -10,7 +10,7 @@ export const config = tseslint.config(...cityssmConfig, {
           words: [
             ...cspellWords,
             'ncic',
-            'nhsta'
+            'nhtsa'
           ]
         }
       }
